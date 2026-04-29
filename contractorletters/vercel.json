@@ -1,5 +1,9 @@
 {
   "rewrites": [
-    { "source": "/api/generate", "destination": "/api/generate.js" }
+    { "source": "/api/generate", "destination": "/api/generate.js" },
+    { "source": "/pages/contractor-demand-letter-template", "destination": "/pages/contractor-demand-letter-template.html" },
+    { "source": "/pages/change-order-letter-template", "destination": "/pages/change-order-letter-template.html" },
+    { "source": "/pages/contractor-lien-waiver-template", "destination": "/pages/contractor-lien-waiver-template.html" },
+    { "source": "/pages/contractor-payment-dispute-letter", "destination": "/pages/contractor-payment-dispute-letter.html" }
   ]
 }
