@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ContractorLetters — AI Document Generator for Contractors & Trades</title>
+  <meta name="description" content="Generate professional contractor letters and documents in seconds. Demand letters, change orders, lien waivers, project completion letters and more. Free, no account needed." />
+  <meta name="keywords" content="contractor letter generator, demand letter contractor, change order letter, lien waiver, contractor collection letter, contractor document generator" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #1A1815;
+      --bg2:      #222019;
+      --bg3:      #2A271F;
+      --ink:      #F2EBD9;
+      --ink2:     #B8AA94;
+      --ink3:     #6B6050;
+      --accent:   #E8821A;
+      --accent2:  #D4711000;
+      --accentbg: rgba(232,130,26,0.10);
+      --border:   rgba(242,235,217,0.07);
+      --border2:  rgba(242,235,217,0.14);
+      --radius:   8px;
+      --radiuslg: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* grain */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 1000;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 160px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(14px);
+      background: rgba(26,24,21,0.93);
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: var(--accent);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+
+    .logo-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      color: var(--ink);
+      letter-spacing: 1.5px;
+    }
+
+    .logo-name span { color: var(--accent); }
+
+    .nav-badge {
+      font-size: 11px; font-weight: 500;
+      color: var(--accent);
+      background: var(--accentbg);
+      border: 1px solid rgba(232,130,26,0.25);
+      padding: 3px 10px; border-radius: 20px;
+    }
+
+    /* ── HERO ── */
+    .hero-wrap { position: relative; overflow: hidden; }
+
+    .hero-geo {
+      position: absolute; inset: 0;
+      pointer-events: none; z-index: 0;
+    }
+
+    .hero {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 0 auto;
+      padding: 3.5rem 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .hero-kicker {
+      display: inline-block;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 9vw, 88px);
+      line-height: 0.95;
+      color: var(--ink);
+      letter-spacing: 2px;
+      margin-bottom: 1.25rem;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: 16px; color: var(--ink2);
+      max-width: 520px; margin: 0 auto 2rem;
+      line-height: 1.65; font-weight: 300;
+    }
+
+    .hero-trust {
+      display: flex; align-items: center;
+      justify-content: center;
+      gap: 1.5rem; flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--ink3);
+    }
+
+    .trust-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%; background: var(--accent); flex-shrink: 0;
+    }
+
+    /* ── HERO VISUAL ── */
+    .hero-visual {
+      display: flex; justify-content: center;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.7s ease both; animation-delay: 0.1s;
+    }
+
+    /* ── STATIC UPSELL ── */
+    .static-upsell {
+      background: var(--bg2);
+      border: 1px solid rgba(232,130,26,0.25);
+      border-radius: var(--radiuslg);
+      padding: 1.1rem 1.5rem;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem; flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .static-upsell-left { display: flex; flex-direction: column; gap: 3px; }
+
+    .static-upsell-badge {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--accent); background: var(--accentbg);
+      border: 1px solid rgba(232,130,26,0.25);
+      padding: 2px 8px; border-radius: 4px; width: fit-content;
+    }
+
+    .static-upsell strong {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; letter-spacing: 1px;
+      color: var(--ink);
+    }
+
+    .static-upsell span { font-size: 12px; color: var(--ink3); font-weight: 300; }
+
+    /* ── SECTION ── */
+    .section { max-width: 900px; margin: 0 auto; padding: 0 2.5rem 2rem; }
+
+    .section-label {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--ink3); margin-bottom: 1rem;
+    }
+
+    /* ── DOC GRID ── */
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 8px; margin-bottom: 2rem;
+    }
+
+    .doc-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+      text-align: left;
+    }
+
+    .doc-card:hover { border-color: var(--border2); background: var(--bg3); transform: translateY(-1px); }
+    .doc-card.active { border-color: var(--accent); background: var(--accentbg); }
+
+    .doc-card-icon { font-size: 20px; margin-bottom: 8px; display: block; }
+
+    .doc-card-tag {
+      display: inline-block; font-size: 10px; font-weight: 500;
+      letter-spacing: 0.5px; color: var(--accent);
+      background: var(--accentbg); padding: 2px 7px;
+      border-radius: 4px; margin-bottom: 7px;
+    }
+
+    .doc-card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px; letter-spacing: 0.8px;
+      color: var(--ink); line-height: 1.2; margin-bottom: 3px;
+    }
+
+    .doc-card-desc { font-size: 11px; color: var(--ink3); line-height: 1.4; }
+
+    /* ── FORM PANEL ── */
+    .form-panel {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radiuslg); overflow: hidden; margin-bottom: 1.5rem;
+    }
+
+    .form-header {
+      padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .form-header-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; letter-spacing: 1px; color: var(--ink);
+    }
+
+    .form-header-sub { font-size: 11px; color: var(--ink3); margin-top: 1px; }
+
+    .form-body {
+      padding: 1.5rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field.full { grid-column: 1 / -1; }
+
+    .field label {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 1px; text-transform: uppercase; color: var(--ink2);
+    }
+
+    .field input, .field select, .field textarea {
+      font-family: 'DM Sans', sans-serif; font-size: 14px;
+      color: var(--ink); background: var(--bg);
+      border: 1px solid var(--border2); border-radius: var(--radius);
+      padding: 9px 12px; outline: none; width: 100%;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(232,130,26,0.12);
+    }
+
+    .field input::placeholder, .field textarea::placeholder { color: var(--ink3); }
+    .field select { appearance: none; cursor: pointer; }
+    .field textarea { resize: vertical; min-height: 78px; line-height: 1.5; }
+
+    /* ── STATE GRID ── */
+    .state-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .state-pill {
+      font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+      padding: 4px 9px; background: var(--bg);
+      border: 1px solid var(--border2); border-radius: 6px;
+      cursor: pointer; color: var(--ink2); transition: all 0.12s;
+    }
+
+    .state-pill:hover { border-color: var(--accent); color: var(--accent); }
+    .state-pill.active { background: var(--accent); border-color: var(--accent); color: #1A1815; font-weight: 600; }
+
+    /* ── GEN BAR ── */
+    .gen-bar {
+      padding: 1rem 1.5rem; border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    .gen-btn {
+      flex: 1; font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px; letter-spacing: 1.5px;
+      padding: 12px 24px; background: var(--accent); color: #1A1815;
+      border: none; border-radius: var(--radius);
+      cursor: pointer; transition: background 0.15s, transform 0.1s;
+    }
+
+    .gen-btn:hover { background: #F0921F; }
+    .gen-btn:active { transform: scale(0.99); }
+    .gen-btn:disabled { background: var(--bg3); color: var(--ink3); cursor: not-allowed; }
+
+    .gen-note { font-size: 11px; color: var(--ink3); line-height: 1.4; max-width: 200px; }
+
+    /* ── OUTPUT ── */
+    .output-panel {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radiuslg); overflow: hidden; margin-bottom: 1.5rem;
+    }
+
+    .output-header {
+      padding: 1rem 1.5rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .output-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px; letter-spacing: 1px; color: var(--ink);
+    }
+
+    .output-actions { display: flex; gap: 8px; }
+
+    .out-btn {
+      font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
+      padding: 5px 14px; background: transparent;
+      border: 1px solid var(--border2); border-radius: 6px;
+      cursor: pointer; color: var(--ink2); transition: all 0.12s;
+    }
+
+    .out-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .output-body {
+      padding: 1.75rem; font-size: 14px; line-height: 1.85;
+      color: var(--ink); white-space: pre-wrap; min-height: 180px;
+      font-weight: 300;
+    }
+
+    .output-placeholder { color: var(--ink3); font-style: italic; }
+
+    /* ── UPSELL ── */
+    .upsell {
+      background: var(--bg2);
+      border: 1px solid rgba(232,130,26,0.3);
+      border-radius: var(--radiuslg);
+      padding: 1.4rem 1.75rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap;
+    }
+
+    .upsell-text strong {
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px; letter-spacing: 1px;
+      color: var(--ink); margin-bottom: 3px;
+    }
+
+    .upsell-text span { font-size: 12px; color: var(--ink2); font-weight: 300; }
+
+    .upsell-cta {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px; letter-spacing: 1.5px;
+      padding: 10px 22px; background: var(--accent);
+      color: #1A1815; border: none; border-radius: var(--radius);
+      cursor: pointer; white-space: nowrap;
+      transition: background 0.15s; flex-shrink: 0;
+      text-decoration: none; display: inline-block;
+    }
+
+    .upsell-cta:hover { background: #F0921F; }
+
+    /* ── DIVIDER ── */
+    .section-divider { max-width: 900px; margin: 0 auto 2rem; padding: 0 2.5rem; }
+    .section-divider hr { border: none; border-top: 1px solid var(--border); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      max-width: 900px; margin: 0 auto;
+    }
+
+    .footer-note { font-size: 11px; color: var(--ink3); max-width: 420px; line-height: 1.5; }
+    .footer-links { display: flex; gap: 1.25rem; }
+    .footer-links a { font-size: 11px; color: var(--ink3); text-decoration: none; }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── SPINNER ── */
+    .spin {
+      display: inline-block; width: 13px; height: 13px;
+      border: 2px solid rgba(26,24,21,0.3);
+      border-top-color: #1A1815;
+      border-radius: 50%;
+      animation: rotate 0.65s linear infinite;
+      vertical-align: middle; margin-right: 7px;
+    }
+
+    @keyframes rotate { to { transform: rotate(360deg); } }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-kicker  { animation: fadeUp 0.55s ease both; animation-delay: 0.05s; }
+    h1            { animation: fadeUp 0.55s ease both; animation-delay: 0.15s; }
+    .hero-sub     { animation: fadeUp 0.55s ease both; animation-delay: 0.25s; }
+    .hero-trust   { animation: fadeUp 0.55s ease both; animation-delay: 0.35s; }
+
+    @media (max-width: 560px) {
+      nav { padding: 1rem 1.25rem; }
+      .hero { padding: 2rem 1.25rem 1.5rem; }
+      .section { padding: 0 1.25rem 1.5rem; }
+      .form-body { grid-template-columns: 1fr; }
+      .field.full { grid-column: 1; }
+      footer { padding: 1.25rem; }
+      .static-upsell { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <div class="logo-icon">🔨</div>
+    <span class="logo-name">Contractor<span>Letters</span></span>
+  </a>
+  <span class="nav-badge">Free · No account needed</span>
+</nav>
+
+<main>
+
+  <div class="hero-wrap">
+    <svg class="hero-geo" viewBox="0 0 900 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="780" cy="-20" r="240" fill="none" stroke="#E8821A" stroke-width="1" opacity="0.08"/>
+      <circle cx="780" cy="-20" r="170" fill="none" stroke="#E8821A" stroke-width="0.75" opacity="0.06"/>
+      <circle cx="840" cy="300" r="190" fill="none" stroke="#E8821A" stroke-width="1" opacity="0.06"/>
+      <circle cx="50"  cy="330" r="210" fill="none" stroke="#E8821A" stroke-width="0.75" opacity="0.05"/>
+      <g opacity="0.14" fill="#E8821A">
+        <circle cx="630" cy="28"  r="1.5"/><circle cx="658" cy="28"  r="1.5"/><circle cx="686" cy="28"  r="1.5"/><circle cx="714" cy="28"  r="1.5"/><circle cx="742" cy="28"  r="1.5"/>
+        <circle cx="630" cy="56"  r="1.5"/><circle cx="658" cy="56"  r="1.5"/><circle cx="686" cy="56"  r="1.5"/><circle cx="714" cy="56"  r="1.5"/><circle cx="742" cy="56"  r="1.5"/>
+        <circle cx="630" cy="84"  r="1.5"/><circle cx="658" cy="84"  r="1.5"/><circle cx="686" cy="84"  r="1.5"/><circle cx="714" cy="84"  r="1.5"/><circle cx="742" cy="84"  r="1.5"/>
+        <circle cx="630" cy="112" r="1.5"/><circle cx="658" cy="112" r="1.5"/><circle cx="686" cy="112" r="1.5"/><circle cx="714" cy="112" r="1.5"/><circle cx="742" cy="112" r="1.5"/>
+      </g>
+      <g opacity="0.07" stroke="#E8821A" stroke-width="1">
+        <line x1="-20" y1="80"  x2="130" y2="-20"/>
+        <line x1="-20" y1="115" x2="165" y2="-20"/>
+        <line x1="-20" y1="150" x2="200" y2="-20"/>
+        <line x1="-20" y1="185" x2="235" y2="-20"/>
+      </g>
+    </svg>
+
+    <div class="hero">
+      <div class="hero-visual">
+        <svg width="220" height="120" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- back doc -->
+          <rect x="40" y="16" width="88" height="102" rx="5" fill="#2A271F" opacity="0.8"/>
+          <!-- mid doc -->
+          <rect x="50" y="8" width="88" height="102" rx="5" fill="#302C22"/>
+          <line x1="64" y1="30" x2="122" y2="30" stroke="#4A4232" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="64" y1="42" x2="116" y2="42" stroke="#3E3828" stroke-width="1" stroke-linecap="round"/>
+          <!-- front doc -->
+          <rect x="62" y="2" width="90" height="108" rx="5" fill="#2A271F" stroke="#3E3828" stroke-width="1"/>
+          <!-- orange header -->
+          <rect x="62" y="2" width="90" height="22" rx="5" fill="#E8821A"/>
+          <rect x="62" y="14" width="90" height="10" rx="0" fill="#E8821A"/>
+          <line x1="74" y1="10" x2="108" y2="10" stroke="rgba(255,255,255,0.75)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="74" y1="17" x2="94"  y2="17" stroke="rgba(255,255,255,0.4)" stroke-width="1" stroke-linecap="round"/>
+          <!-- content lines -->
+          <line x1="74" y1="34" x2="140" y2="34" stroke="#4A4232" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="74" y1="43" x2="134" y2="43" stroke="#3E3828" stroke-width="1" stroke-linecap="round"/>
+          <line x1="74" y1="51" x2="138" y2="51" stroke="#3E3828" stroke-width="1" stroke-linecap="round"/>
+          <line x1="74" y1="59" x2="128" y2="59" stroke="#3E3828" stroke-width="1" stroke-linecap="round"/>
+          <line x1="74" y1="70" x2="140" y2="70" stroke="#3E3828" stroke-width="1" stroke-linecap="round"/>
+          <line x1="74" y1="78" x2="132" y2="78" stroke="#3E3828" stroke-width="1" stroke-linecap="round"/>
+          <line x1="74" y1="86" x2="136" y2="86" stroke="#3E3828" stroke-width="1" stroke-linecap="round"/>
+          <!-- sig line -->
+          <line x1="74" y1="100" x2="118" y2="100" stroke="#4A4232" stroke-width="1" stroke-linecap="round"/>
+          <path d="M74 98 Q80 94 86 98 Q92 102 98 98" stroke="#E8821A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <!-- badge -->
+          <circle cx="146" cy="94" r="10" fill="#E8821A"/>
+          <path d="M141 94 L145 98 L152 91" stroke="#1A1815" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+
+      <span class="hero-kicker">AI-powered contractor documents</span>
+      <h1>Stop chasing.<br><em>Start billing.</em></h1>
+      <p class="hero-sub">Generate professional contractor letters, demand notices, and job documents in seconds. Built for the trades — direct, firm, and ready to send.</p>
+      <div class="hero-trust">
+        <span class="trust-item"><span class="trust-dot"></span>All 50 states</span>
+        <span class="trust-item"><span class="trust-dot"></span>8 document types</span>
+        <span class="trust-item"><span class="trust-dot"></span>Copy & send in minutes</span>
+        <span class="trust-item"><span class="trust-dot"></span>No signup required</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><hr></div>
+
+  <div class="section" style="padding-bottom:0">
+    <div class="static-upsell">
+      <div class="static-upsell-left">
+        <span class="static-upsell-badge">Template Pack</span>
+        <strong>18 contractor document templates — $12</strong>
+        <span>Every letter you'll ever need on a job. Download instantly.</span>
+      </div>
+      <a class="upsell-cta" href="#" target="_blank" rel="noopener">Get the Pack →</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-label">Choose a document</p>
+    <div class="doc-grid" id="docGrid"></div>
+
+    <div class="form-panel" id="formPanel">
+      <div class="form-header">
+        <div>
+          <div class="form-header-title" id="formTitle">Select a document above to begin</div>
+          <div class="form-header-sub" id="formSub">State-specific language included automatically</div>
+        </div>
+      </div>
+      <div class="form-body" id="formBody">
+        <div class="full" style="grid-column:1/-1;padding:1.5rem 0;text-align:center;color:var(--ink3);font-size:13px;">
+          ← Pick a document type above to get started
+        </div>
+      </div>
+      <div class="gen-bar">
+        <button class="gen-btn" id="genBtn" onclick="generate()" disabled>Generate Document</button>
+        <p class="gen-note">State-aware language included automatically.</p>
+      </div>
+    </div>
+
+    <div class="output-panel" id="outputPanel" style="display:none">
+      <div class="output-header">
+        <span class="output-title" id="outputTitle">Your Document</span>
+        <div class="output-actions">
+          <button class="out-btn" id="copyBtn" onclick="copyDoc()">Copy</button>
+          <button class="out-btn" onclick="printDoc()">Print</button>
+          <button class="out-btn" onclick="resetOutput()">New</button>
+        </div>
+      </div>
+      <div class="output-body" id="outputBody">
+        <span class="output-placeholder">Your document will appear here.</span>
+      </div>
+    </div>
+
+    <div class="upsell" id="upsellBar" style="display:none">
+      <div class="upsell-text">
+        <strong>Want all 18 contractor templates?</strong>
+        <span>Every document you need on a job site — demand letters, change orders, lien waivers & more. $12 one-time.</span>
+      </div>
+      <a class="upsell-cta" href="#" target="_blank" rel="noopener">Get the Pack →</a>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  <p class="footer-note">ContractorLetters generates documents for informational purposes. This is not legal advice. Always consult a qualified attorney for complex contractor-client disputes.</p>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">About</a>
+  </div>
+</footer>
+
+<script>
+const DOCS = [
+  {
+    id: 'demand-payment',
+    tag: 'Collections',
+    icon: '💰',
+    name: 'Demand for Payment',
+    desc: 'Unpaid invoice final notice',
+    fields: [
+      { id: 'clientName',    label: 'Client name',         placeholder: 'e.g. John & Sarah Miller' },
+      { id: 'clientAddress', label: 'Client address',      placeholder: 'e.g. 842 Riverside Dr' },
+      { id: 'invoiceNum',    label: 'Invoice number',      placeholder: 'e.g. INV-2024-047' },
+      { id: 'amountOwed',    label: 'Amount owed',         placeholder: 'e.g. $4,850' },
+      { id: 'daysPast',      label: 'Days past due',       placeholder: 'e.g. 45' },
+      { id: 'jobDesc',       label: 'Job description',     placeholder: 'e.g. Kitchen remodel, 22 Oak St' },
+      { id: 'state',         label: 'State',               type: 'state' },
+    ]
+  },
+  {
+    id: 'change-order',
+    tag: 'Job Changes',
+    icon: '📋',
+    name: 'Change Order Notice',
+    desc: 'Scope change with cost impact',
+    fields: [
+      { id: 'clientName',   label: 'Client name',          placeholder: 'e.g. Marcus Webb' },
+      { id: 'jobAddress',   label: 'Job site address',     placeholder: 'e.g. 15 Birchwood Lane' },
+      { id: 'changeDesc',   label: 'Change description',   placeholder: 'e.g. Added 200 sq ft of decking not in original scope...', type: 'textarea' },
+      { id: 'originalCost', label: 'Original contract amount', placeholder: 'e.g. $12,500' },
+      { id: 'changeAmount', label: 'Change order amount',  placeholder: 'e.g. $2,200' },
+      { id: 'newTotal',     label: 'New contract total',   placeholder: 'e.g. $14,700' },
+      { id: 'state',        label: 'State',                type: 'state' },
+    ]
+  },
+  {
+    id: 'project-completion',
+    tag: 'Completion',
+    icon: '✅',
+    name: 'Project Completion',
+    desc: 'Final sign-off & payment request',
+    fields: [
+      { id: 'clientName',    label: 'Client name',         placeholder: 'e.g. The Rodriguez Family' },
+      { id: 'jobAddress',    label: 'Job site address',    placeholder: 'e.g. 7 Maple Court' },
+      { id: 'jobDesc',       label: 'Work completed',      placeholder: 'e.g. Full bathroom renovation per contract dated March 1...', type: 'textarea' },
+      { id: 'finalAmount',   label: 'Final payment due',   placeholder: 'e.g. $3,500' },
+      { id: 'completedDate', label: 'Completion date',     placeholder: 'e.g. April 25, 2026' },
+      { id: 'state',         label: 'State',               type: 'state' },
+    ]
+  },
+  {
+    id: 'lien-waiver',
+    tag: 'Legal',
+    icon: '📄',
+    name: 'Lien Waiver',
+    desc: 'Conditional or unconditional waiver',
+    fields: [
+      { id: 'clientName',   label: 'Property owner',       placeholder: 'e.g. Alex Thompson' },
+      { id: 'jobAddress',   label: 'Property address',     placeholder: 'e.g. 302 Harbor View Rd' },
+      { id: 'companyName',  label: 'Your company name',    placeholder: 'e.g. Peak Construction LLC' },
+      { id: 'lienType',     label: 'Waiver type',          placeholder: 'e.g. Conditional upon payment / Unconditional' },
+      { id: 'paymentAmt',   label: 'Payment amount',       placeholder: 'e.g. $8,400' },
+      { id: 'state',        label: 'State',                type: 'state' },
+    ]
+  },
+  {
+    id: 'proposal-letter',
+    tag: 'New Business',
+    icon: '🤝',
+    name: 'Proposal Letter',
+    desc: 'Professional job estimate cover',
+    fields: [
+      { id: 'clientName',   label: 'Client name',          placeholder: 'e.g. Dana & Chris Park' },
+      { id: 'jobAddress',   label: 'Job address',          placeholder: 'e.g. 91 Pine Ave' },
+      { id: 'scopeDesc',    label: 'Scope of work',        placeholder: 'e.g. Full roof replacement, tear-off and install 30-year architectural shingles...', type: 'textarea' },
+      { id: 'totalAmount',  label: 'Proposal total',       placeholder: 'e.g. $14,200' },
+      { id: 'validDays',    label: 'Quote valid for',      placeholder: 'e.g. 30 days' },
+      { id: 'companyName',  label: 'Your company name',    placeholder: 'e.g. Summit Roofing Co.' },
+      { id: 'state',        label: 'State',                type: 'state' },
+    ]
+  },
+  {
+    id: 'warranty-letter',
+    tag: 'Post-Job',
+    icon: '🛡️',
+    name: 'Warranty Letter',
+    desc: 'Documents coverage after completion',
+    fields: [
+      { id: 'clientName',    label: 'Client name',         placeholder: 'e.g. Sam Williams' },
+      { id: 'jobAddress',    label: 'Job address',         placeholder: 'e.g. 44 Cedar Blvd' },
+      { id: 'workDesc',      label: 'Work performed',      placeholder: 'e.g. HVAC installation, Carrier 3-ton unit' },
+      { id: 'warrantyPeriod', label: 'Warranty period',    placeholder: 'e.g. 1 year labor, 10 year parts' },
+      { id: 'completedDate', label: 'Completion date',     placeholder: 'e.g. April 20, 2026' },
+      { id: 'companyName',   label: 'Your company name',   placeholder: 'e.g. CoolAir HVAC Services' },
+      { id: 'state',         label: 'State',               type: 'state' },
+    ]
+  },
+  {
+    id: 'contract-termination',
+    tag: 'Disputes',
+    icon: '🚫',
+    name: 'Contract Termination',
+    desc: 'End a contract for cause or convenience',
+    fields: [
+      { id: 'clientName',   label: 'Client name',          placeholder: 'e.g. Jordan Lee' },
+      { id: 'jobAddress',   label: 'Job address',          placeholder: 'e.g. 19 Walnut Drive' },
+      { id: 'reason',       label: 'Reason for termination', placeholder: 'e.g. Non-payment, failure to provide access, unsafe conditions...', type: 'textarea' },
+      { id: 'amountOwed',   label: 'Amount owed to date',  placeholder: 'e.g. $6,200 for work completed' },
+      { id: 'companyName',  label: 'Your company name',    placeholder: 'e.g. Apex Electric LLC' },
+      { id: 'state',        label: 'State',                type: 'state' },
+    ]
+  },
+  {
+    id: 'punch-list',
+    tag: 'Completion',
+    icon: '📝',
+    name: 'Punch List Letter',
+    desc: 'Remaining items before final payment',
+    fields: [
+      { id: 'clientName',   label: 'Client name',          placeholder: 'e.g. Taylor Brooks' },
+      { id: 'jobAddress',   label: 'Job address',          placeholder: 'e.g. 5 Harbor Crest Ln' },
+      { id: 'punchItems',   label: 'Punch list items',     placeholder: 'e.g. 1. Touch up paint in master bedroom\n2. Replace cracked outlet cover in kitchen\n3. Adjust cabinet door alignment...', type: 'textarea' },
+      { id: 'finalPayment', label: 'Final payment amount', placeholder: 'e.g. $2,800' },
+      { id: 'deadline',     label: 'Completion deadline',  placeholder: 'e.g. May 10, 2026' },
+      { id: 'state',        label: 'State',                type: 'state' },
+    ]
+  },
+];
+
+const STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
+
+let activeDoc = null;
+let selectedState = '';
+
+const grid = document.getElementById('docGrid');
+DOCS.forEach(doc => {
+  const card = document.createElement('div');
+  card.className = 'doc-card';
+  card.dataset.id = doc.id;
+  card.innerHTML = `
+    <span class="doc-card-icon">${doc.icon}</span>
+    <div class="doc-card-tag">${doc.tag}</div>
+    <div class="doc-card-name">${doc.name}</div>
+    <div class="doc-card-desc">${doc.desc}</div>
+  `;
+  card.addEventListener('click', () => selectDoc(doc));
+  grid.appendChild(card);
+});
+
+function selectDoc(doc) {
+  activeDoc = doc;
+  selectedState = '';
+  document.querySelectorAll('.doc-card').forEach(c =>
+    c.classList.toggle('active', c.dataset.id === doc.id)
+  );
+  document.getElementById('formTitle').textContent = doc.name;
+  document.getElementById('formSub').textContent = 'Fill in the fields below and click generate';
+  document.getElementById('genBtn').disabled = false;
+
+  const body = document.getElementById('formBody');
+  body.innerHTML = '';
+
+  doc.fields.forEach(f => {
+    const wrap = document.createElement('div');
+    wrap.className = 'field' + (f.type === 'textarea' || f.type === 'state' ? ' full' : '');
+
+    if (f.type === 'state') {
+      wrap.innerHTML = `<label>${f.label}</label><div class="state-grid" id="sg_${doc.id}"></div>`;
+      body.appendChild(wrap);
+      const sg = document.getElementById('sg_' + doc.id);
+      STATES.forEach(s => {
+        const pill = document.createElement('button');
+        pill.className = 'state-pill'; pill.textContent = s; pill.type = 'button';
+        pill.addEventListener('click', () => {
+          document.querySelectorAll('.state-pill').forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          selectedState = s;
+        });
+        sg.appendChild(pill);
+      });
+    } else if (f.type === 'textarea') {
+      wrap.innerHTML = `<label>${f.label}</label><textarea id="f_${f.id}" placeholder="${f.placeholder}"></textarea>`;
+      body.appendChild(wrap);
+    } else {
+      wrap.innerHTML = `<label>${f.label}</label><input type="text" id="f_${f.id}" placeholder="${f.placeholder}" />`;
+      body.appendChild(wrap);
+    }
+  });
+}
+
+function getFields() {
+  const out = {};
+  if (!activeDoc) return out;
+  activeDoc.fields.forEach(f => {
+    if (f.type === 'state') { out['State'] = selectedState || 'your state'; return; }
+    const el = document.getElementById('f_' + f.id);
+    if (el) out[f.label] = el.value.trim() || '(not provided)';
+  });
+  return out;
+}
+
+async function generate() {
+  if (!activeDoc) return;
+  const btn = document.getElementById('genBtn');
+  const outputPanel = document.getElementById('outputPanel');
+  const outputBody = document.getElementById('outputBody');
+  const upsell = document.getElementById('upsellBar');
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span>Writing your document...';
+  outputPanel.style.display = 'block';
+  document.getElementById('outputTitle').textContent = activeDoc.name;
+  outputBody.innerHTML = '<span class="output-placeholder">Generating your document...</span>';
+  upsell.style.display = 'none';
+  document.getElementById('copyBtn').textContent = 'Copy';
+  outputPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  try {
+    const response = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        docType: activeDoc.name,
+        fields: getFields(),
+        state: selectedState || 'your state'
+      })
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      outputBody.innerHTML = `<span style="color:#e05a3a;font-style:italic">Error: ${data.error || 'Something went wrong.'}</span>`;
+    } else {
+      outputBody.textContent = data.result;
+      upsell.style.display = 'flex';
+    }
+  } catch (err) {
+    outputBody.innerHTML = '<span style="color:#e05a3a;font-style:italic">Network error — please try again.</span>';
+  }
+  btn.disabled = false;
+  btn.innerHTML = 'Generate Document';
+}
+
+function copyDoc() {
+  navigator.clipboard.writeText(document.getElementById('outputBody').textContent).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2200);
+  });
+}
+
+function printDoc() {
+  const content = document.getElementById('outputBody').textContent;
+  const win = window.open('', '_blank');
+  win.document.write(`<html><head><title>ContractorLetters Document</title><style>body{font-family:Georgia,serif;max-width:680px;margin:60px auto;font-size:15px;line-height:1.8;color:#1a1a1a;white-space:pre-wrap}</style></head><body>${content}</body></html>`);
+  win.document.close(); win.print();
+}
+
+function resetOutput() {
+  document.getElementById('outputPanel').style.display = 'none';
+  document.getElementById('upsellBar').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
